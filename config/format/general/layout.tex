@@ -177,11 +177,6 @@
 }
 {}
 
-\newcommand{\resetpagecounter}
-{
-    \setcounter{page}{1}
-}
-
 \newcommand{\coverstyle}
 {
     \pagestyle{cover}
@@ -194,7 +189,7 @@
     \thispagestyle{previous}
     \pagestyle{previous}
     \pagenumbering{Roman}
-    \resetpagecounter{}
+    \setcounter{page}{1}
     \numberingstyle{}
 }
 
@@ -205,7 +200,7 @@
     \thispagestyle{common}
     \pagestyle{common}
     \pagenumbering{arabic}
-    \resetpagecounter{}
+    \setcounter{page}{1}
 }
 
 \newcommand{\poststyle}

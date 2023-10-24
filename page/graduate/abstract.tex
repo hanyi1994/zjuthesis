@@ -1,5 +1,70 @@
 \cleardoublepage
 \chapternonum{摘要}
 
+%群组动画是计算机动画中一个重要的研究方向，被广泛应用于人群、虫群、鸟群、微粒群体等的行为模拟。近些年，得益于数字孪生、自动驾驶等行业的飞速发展，群组动画也常用于交通流的仿真，帮助优化城市交通的规划和布局，或者为自动驾驶算法的道路测试提供一个灵活、高效且安全的可视化虚拟环境。虽然现有的交通仿真方法已经能够生成相对真实的交通流，但其更多的是模拟常规的车辆行为(如沿着车道行驶、加减速、简单的变道和交通信号灯控制)。当用户希望获得包含特殊或非常规车辆行为的数据（如掉头、急转弯、借道超车、倒车等），则需要依据前一次仿真的结果对仿真器参数或场景预设进行调整并重新仿真，反复直到结果符合预期为止。这一过程除了需要耗费大量的试错成本，用户也难以在无实际物理意义的参数变化和个体行为变化之间建立直观的联系。
+
+%针对上述问题，本文通过简化仿真模型来降低用户需要调试的参数规模，以及引入交互式编辑技术让用户以人在回路（human-in-the-loop）的方式对仿真中的车辆运动进行实时多维度控制，从而更直观、简便地生成用户想要的交通场景。在此基础上，本文着重研究了基于简化社会力模型的混合交通仿真、非常规性与多样性注入的实时交通轨迹编辑、时-空关键帧约束控制的交通仿真以及引入非跟驰车辆行为的交互式交通仿真。本文的主要贡献如下：
+
+随着计算机图形学的进步，三维动画、虚拟现实技术与交通仿真得到了良好的结合，可视化交通仿真（visual traffic simulation）应运而生。相比于传统的交通仿真，可视化交通仿真能够在视觉维度提供更加丰富的结果信息，因此随着近年来数字孪生、自动驾驶、影视游戏等产业的飞速发展，也受到了越来越多的关注——高保真的仿真结果有助于在虚拟世界中构建逼真的城市场景，为自动驾驶算法道路测试提供一个灵活、高效且安全的环境，或是为其他不同的计算机视觉任务提供额外的训练测试数据。虽然现有的可视化交通仿真已经能够生成相对真实的交通场景，但其中包含更多的是常规的车辆行为(如沿着车道行驶、加减速、简单的变道和交通信号灯控制)。随着各类需求的不断变化，用户更希望通过仿真获得包含多样化个体行为的交通数据（如掉头、急转弯、借道超车、倒车、人车交互等）。现有的方法或是不支持生成此类行为，或是需要用户耗费大量的试错成本，基于前一次仿真结果来反复调试参数和场景预设并重新仿真，直到符合预期为止，十分的繁琐。
+
+为了提高仿真交通场景的多样性，同时避免生成过程需要用户花费大量的调试时间和精力，本文分别通过将个体运动控制与人机交互技术结合来高效扩展个体的行为多样性、在统一框架内仿真混合交通来扩展个体的种类多样性。特别是在引入交互式编辑的概念后，用户能够以人在回路（human-in-the-loop）的方式对仿真中的个体运动进行实时多维度干预，从而更直观、简便地生成预期中的交通场景。对于智能体行为多样性，本文着重研究了交互式交通仿真与轨迹编辑、基于时-空关键帧控制的交通仿真、基于用户引导注入非跟驰行为的交通仿真；对于智能体种类多样性，本文着重研究了基于简化社会力模型的混合交通仿真。本文的主要贡献如下：
+
+
+\begin{itemize}%[topsep=5pt,leftmargin=*]%[noitemsep,topsep=5pt,leftmargin=*]
+
+    %\item 提出了一种针对多类智能体混合交通仿真的简化社会力模型方法。首先，该方法基于面向对象的思想，设计了一个抽象的基类用于描述城市交通中不同类型智能体行为的共性；其次，通过引入简化的社会力模型来计算个体交互的吸引力和排斥力，其中的计算系数由个体自身的物理属性参数化得到，以保证不同种类智能体的行为差异和个性化。该方法避免了使用不同社会力模型为各类智能体的运动和交互进行点对点式（ad-hoc）建模，减少了大量无实际物理意义的参数，节省了调参的人力成本，同时在保证仿真结果真实的前提下降低了计算复杂度，提高了模型的易扩展性。
+
+    %\item 提出了一种融合多样性与非常规性的实时交互式交通轨迹编辑方法，以便为自动驾驶测试生成更灵活、多元化的交通场景。用户不仅能实时更改选定车辆的属性，还能在场景中直接点击关键点位，基于启发式算法生成参考路径供其跟随。在将车辆状态从静态场景解耦到局部路径坐标表示，并综合考虑历史轨迹、用户编辑以及环境和物理运动约束等因素，被编辑车辆及其邻车的运动将基于数据驱动的仿真方法更新。该方法实现了定制化交通场景的高效直观生成，并且能模拟先前的方法或数据集中较少出现的交通行为。
+
+    %\item 提出了一种基于时-空关键帧控制的交通仿真方法，同时研发了一种由粗到细的优化策略来解决关键帧的约束控制问题。该方法允许用户在场景中指定关键帧，引导选定车辆在规定的时间点到达规定的位置。为了高效求解约束，该方法先基于启发式搜索在离散的车辆状态-时间空间内搜索一条满足关键帧的粗粒度轨迹，然后基于社会力仿真模型的可微性进行二次优化，利用粗粒度轨迹中提取的信息初始化伴随法（adjoint method），使得梯度快速下降且稳定收敛。该方法提高了轨迹编辑的灵活性，且能同时保证求解约束的效率和生成轨迹的平滑。
+
+    %\item 提出了一种包括非跟驰行为在内的交互式交通仿真方法，此方法能让用户以便捷的方式引入倒车行为。该方法允许用户对选定车辆指定关键状态，基于车辆运动学和环境等约束使用启发式搜索生成同时带有前向和反向导航的参考路径。在同样考虑了车辆运动学模型的情况下，该方法在速度空间基于采样和能量优化策略来更新车辆状态，且在碰撞避免中同时考虑了关于安全跟随距离和几何形状的约束。为了明晰非跟驰车辆与其他车辆之间的运动优先级，该方法还定义了一套不同运动行为车辆之间的交互规则。该方法能让用户快速生成包含倒车的罕见交通场景，进一步提高了编辑的可控性和结果的多样性。
+
+    \item 为了快捷地生成符合用户预期的多样化交通场景数据，将交互式编辑技术引入可视化交通仿真，提出了一个交互式交通仿真与轨迹编辑框架。仿真过程中，用户不仅能更改选定车辆的属性，还能在可视化场景中直接点击关键点位，基于启发式算法生成参考路径供其跟随。在将车辆状态从静态场景解耦到局部路径坐标表示，并综合考虑历史轨迹、用户编辑以及环境和物理运动约束等因素，被编辑车辆及其邻车的运动将基于数据驱动的仿真方法更新。该方法实现了定制化交通场景的高效直观生成，能模拟先前的方法或数据集中较少出现的交通行为，如U型掉头、跨多车道急转弯和借道超车。
+
+    \item 为了提高用户交互编辑的灵活程度，将关键帧动画引入交互式交通仿真框架，提出了一种基于时-空关键帧控制的交通仿真方法，同时研发了一种由粗到细的优化策略来解决关键帧的约束控制问题。该方法允许用户在可视化场景中指定关键帧，引导选定车辆在规定的时间点到达规定的位置。为了高效求解约束，该方法先基于启发式搜索在离散的车辆状态-时间空间内搜索一条满足关键帧的粗粒度轨迹，然后基于社会力仿真模型的可微性进行二次优化，利用粗粒度轨迹中提取的信息初始化伴随法（adjoint method），使得梯度快速下降且稳定收敛。该方法提高了轨迹编辑的灵活性，且能同时保证求解约束的效率和生成轨迹的平滑。
+
+    \item 为了将倒车行为引入交通仿真，提出了基于用户的引导来注入非跟驰行为的交通仿真方法。用户允许对选定车辆指定关键状态，基于车辆运动学和环境等约束使用启发式搜索生成同时带有前向和反向导航的参考路径。在同样考虑了车辆运动学模型的情况下，该方法在速度空间基于采样和能量优化策略来更新车辆状态，且在碰撞避免中同时考虑了关于安全跟随距离和几何形状的约束。为了明晰非跟驰车辆与其他车辆之间的运动优先级，该方法还定义了一套不同运动行为车辆之间的交互规则。该方法能让用户快速生成包含倒车的罕见交通场景，进一步提高了编辑的可控性和结果的多样性。
+
+    \item 为了实现不同交通参与者在统一的框架内运动交互，提出了一种针对多类智能体混合交通仿真的简化社会力模型方法。首先，该方法基于面向对象的思想，设计了一个抽象的基类用于描述城市交通中不同类型智能体行为的共性；其次，通过引入简化的社会力模型来计算个体交互的吸引力和排斥力，其中的计算系数由个体自身的物理属性参数化得到，以保证不同种类智能体的行为差异和个性化。该方法避免了使用不同社会力模型为各类智能体的运动和交互进行点对点式（ad-hoc）建模，减少了大量无实际物理意义的参数，节省了调参的人力成本，同时在保证仿真结果真实的前提下降低了计算复杂度，提高了模型的易扩展性。
+    
+
+\end{itemize}
+
+\noindent\textbf{关键词：}可视化交通仿真，交互式编辑，关键帧动画，非常规交通行为，混合交通，启发式搜索，社会力模型，能量最小化
+
+
 \cleardoublepage
 \chapternonum{Abstract}
+
+%Crowd and group animation is an important research area in computer animation, widely applied in behavior simulation of crowds, swarms, flocks and particle systems. In recent years, with the rapid development of the digital twins and the autonomous driving industry, crowd animation has also found application in traffic flow simulation. It is used for city planning, data augmentation or to provide a flexible, efficient, and safe virtual environment for self-driving road testing. While current simulation methods can generate plausible traffic flow, they usually simulate common traffic behaviors (e.g., driving along lanes, accelerating/decelerating, lane changing, and obeying traffic signals). However, if users want data with special controls or irregular behaviors (e.g., turning around, swerving, nudging and reversing), they need to adjust simulation parameters or scene presets based on previous results and repeatedly rerun the simulation until the desired results are achieved. This trial-and-error process consumes an amount of time and makes it difficult to establish an intuitive connection between the tuning of parameters lacking physical significance and behavior changes of individual.
+
+%To address the issues, this dissertation simplifies the simulation model to reduce the number of adjustable parameters, and introduces the interactive editing concept, which allows users to have real-time, multidimensional control over vehicles during the simulation. Following these human-in-the-loop approaches, users can intuitively and conveniently generate desired traffic scenarios. Based on the analysis, we investigate the simplified force model for mixed traffic simulation, diversity and irregularity-aware traffic trajectory editing, spatio-temporal keyframe controlled traffic simulation and interactive traffic simulation with non-car-following behaviors. Our contributions include:
+
+With the advancement of computer graphics, 3D animation, virtual reality and traffic simulation have been well integrated, giving rise to visual traffic simulation. Visual traffic simulation can visually provide richer information compared to traditional traffic simulation. It has attracted much attentions in recent years with the rapid development of digital twins, autonomous driving, and the film and video game industry. High-fidelity simulation results can help to create realistic urban scenarios in the virtual world and provide a flexible, efficient, and safe environment for self-driving road testing or training and testing data for other perceptual tasks. Although current visual traffic simulation methods can generate plausible traffic scenes, they usually simulate common traffic behaviors (e.g., driving along lanes, accelerating/decelerating, lane changing, and obeying traffic signals). As the demand diversifies, users are looking for simulations that include a wider range of individual behaviors (e.g., turning around, swerving, nudging, reversing, and pedestrian-vehicle interacting). Current methods either are unable to simulate such behaviors, or they require users to repeatedly adjust simulation parameters or scene presets based on previous results and rerun the simulation until the desired results are achieved, which is quite frustrating. 
+
+To simulate diverse traffic scenes while prevent users from sinking into a costly trial-and-error process, this dissertation integrates the interactive editing concept into visual traffic simulation to improve the diversity of individual behavior, and come up with a unified framework to simulate mixed urban traffic to improve the diversity of agent type. Following the proposed human-in-the-loop approaches, users can have real-time, multidimensional control over vehicles during the simulation, and generate desired traffic scenes intuitively and conveniently. For the diversity of individual behavior, this work investigates interactive traffic simulation and trajectory editing, spatio-temporal keyframe controlled traffic simulation and introducing non-car-following behaviors into traffic simulation with user interactions; for the diversity of agent type, this work investigates mixed traffic simulation based on the simplified force model. Our contributions include:  
+
+
+\begin{itemize}%[noitemsep,topsep=5pt,leftmargin=*]
+
+    %\item We present a simplified social force model for mixed traffic simulation with various types of agents. Based on an object-oriented design, the approach utilizes an basic class to capture the common behaviors exhibited by different road users and applies the simplified force model to compute attractive and repulsive influences. The calculation coefficients are parameterized using the physical attributes of each individual to ensure behavior diversity. By avoiding ad-hoc modeling for interactions between different agents, our approach can reduce unnecessary parameters and computational complexity, and improve the efficiency of tuning and system scalability while still generating realistic results. 
+
+    %\item We present a diversity and irregularity-aware traffic trajectory editing method to flexibly generate various traffic scenes for autonomous driving testing. For selected vehicles, users are allowed to modify their attributes and click key points to generate reference paths based on heuristic search. With vehicle states decoupled from static scenarios and represented in the local path coordinates, the edited vehicles and their neighbors are updated based on a data-driven method by considering existing trajectories, user edits, environmental and physical constraints. The approach can efficiently and intuitively generate desired traffic cases with behaviors less observed in previous methods or dataset.
+
+    %\item We present spatio-temporal keyframe controlled traffic simulation with coarse-to-fine optimization. The approach allows users to specify keyframes for selected vehicles to arrive a certain position at a predefined moment. With given keyframes, a coarse trajectory is generated in the discretized state-time space using heuristic search at first. Then it is used to initialize the adjoint method to enable rapid and stable convergence of gradients for a finer result based on differential force-based simulation. It improves the flexibility of trajectory editing with efficient constraint solving and smooth results.
+
+    %\item By introducing reversing behavior, we present an interactive traffic simulation method with more than car-following vehicles. Users can set key states for selected vehicles, which will be used in heuristic search to generate both forward and backward navigation with holonomic and environmental constraints. Also based on vehicle kinematics, We update vehicle states using sampling and energy minimization in velocity space, considering both the safe following distance and vehicle geometry for collision avoidance. Motion priorities are further clarified with defined interaction rules between vehicles with different motion patterns. Our approach can generate rare traffic cases with reversing behavior, highly improving the controllability of simulation and diversity of generated data. 
+
+    \item To flexibly generate various traffic scenes for autonomous driving testing, we present a diversity and irregularity-aware traffic trajectory editing method . For selected vehicles, users are allowed to modify their attributes and click key points to generate reference paths based on heuristic search. With vehicle states decoupled from static scenarios and represented in the local path coordinates, the edited vehicles and their neighbors are updated based on a data-driven method by considering existing trajectories, user edits, environmental and physical constraints. The approach can efficiently and intuitively generate desired traffic cases with behaviors less observed in previous methods or dataset.
+
+    \item To introduce multidimensional controls, we present spatio-temporal keyframe controlled traffic simulation with coarse-to-fine optimization. The approach allows users to specify keyframes for selected vehicles to arrive a certain position at a predefined moment. With given keyframes, a coarse trajectory is generated in the discretized state-time space using heuristic search at first. Then it is used to initialize the adjoint method to enable rapid and stable convergence of gradients for a finer result based on differential force-based simulation. It improves the flexibility of trajectory editing with efficient constraint solving and smooth results.
+
+    \item To introduce reversing behavior, we present an interactive traffic simulation method with more than car-following vehicles. Users can set key states for selected vehicles, which will be used in heuristic search to generate both forward and backward navigation with holonomic and environmental constraints. Also based on vehicle kinematics, We update vehicle states using sampling and energy minimization in velocity space, considering both the safe following distance and vehicle geometry for collision avoidance. Motion priorities are further clarified with defined interaction rules between vehicles with different motion patterns. Our approach can generate rare traffic cases with reversing behavior, highly improving the controllability of simulation and diversity of generated data. 
+
+    \item To simulate mixed urban traffic with various types of agents in a unified framework, we present a simplified social force model. Based on an object-oriented design, the approach utilizes an basic class to capture the common behaviors exhibited by different road users and applies the simplified force model to compute attractive and repulsive influences. The calculation coefficients are parameterized using the physical attributes of each individual to ensure behavior diversity. By avoiding ad-hoc modeling for interactions between different agents, our approach can reduce unnecessary parameters and computational complexity, and improve the efficiency of tuning and system scalability while still generating realistic results. 
+    
+
+\end{itemize}
+
+\noindent\textbf{Keywords：}Visual Traffic Simulation, Interactive Editing, Keyframe Control, Irregular Traffic Behavior, Mixed Traffic, Heuristic Search, Social Force Model, Energy Minimization
